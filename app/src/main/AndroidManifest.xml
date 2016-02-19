@@ -25,6 +25,10 @@
         <activity
             android:name=".CheatSheetActivity"
             android:label="@string/title_activity_cheat_sheet"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Form"
+            android:label="@string/title_activity_form"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

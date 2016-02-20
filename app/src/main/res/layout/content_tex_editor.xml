@@ -14,63 +14,99 @@
     tools:context=".TeXEditorActivity"
     tools:showIn="@layout/activity_tex_editor">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/formula_tex"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Write your LaTeX mathematical expression here!"/>
+            android:layout_height="match_parent">
 
-
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/default_padding">
-
-            <io.github.kexanie.library.MathView
-                android:id="@+id/MathJax_Preview"
+            <!-- Latex layout -->
+            <LinearLayout
+                android:id="@+id/latex_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                auto:engine="MathJax">
-            </io.github.kexanie.library.MathView>
+                android:orientation="vertical"
+                android:visibility="visible">
 
-        </android.support.v4.widget.NestedScrollView>
+                <EditText
+                    android:id="@+id/latex_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Write your LaTeX mathematical expression here!"/>
 
-        <ImageView
-            android:id="@+id/tex_image_preview"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <android.support.v4.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/default_padding">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true">
+                    <io.github.kexanie.library.MathView
+                        android:id="@+id/MathJax_Preview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        auto:engine="MathJax">
+                    </io.github.kexanie.library.MathView>
 
-            <Button
-                android:id="@+id/load_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Load Image"/>
-
-            <Button
-                android:id="@+id/take_photo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Take Photo"/>
-
+                </android.support.v4.widget.NestedScrollView>
             </LinearLayout>
-        </RelativeLayout>
 
-    </LinearLayout>
+            <!-- Text layout -->
+            <LinearLayout
+                android:id="@+id/text_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/note_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Write your notes here!"/>
+            </LinearLayout>
+
+            <!-- image layout -->
+            <LinearLayout
+                android:id="@+id/image_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/tex_image_preview"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_launcher"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/load_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Load Image"/>
+
+                        <Button
+                            android:id="@+id/take_photo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Take Photo"/>
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

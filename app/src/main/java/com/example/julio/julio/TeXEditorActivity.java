@@ -9,10 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
@@ -20,12 +23,14 @@ import java.io.IOException;
 
 import io.github.kexanie.library.MathView;
 
-public class TeXEditorActivity extends AppCompatActivity {
+public class TeXEditorActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     private static final int CAMERA_REQUEST = 1888;
     private static final int RESULT_LOAD_IMAGE = 1999;
 
     private Bitmap photo_bitmap = null;
+
+    private int selectedType = R.id.item_latex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,17 @@ public class TeXEditorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tex_editor);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ImageButton texMenuButton = (ImageButton) findViewById(R.id.tex_menu_button);
+        texMenuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(TeXEditorActivity.this, v);
+                popupMenu.setOnMenuItemClickListener(TeXEditorActivity.this);
+                popupMenu.inflate(R.menu.menu_sheet_type);
+                popupMenu.show();
+            }
+        });
 
         final MathView mathView = (MathView) findViewById(R.id.MathJax_Preview);
 
@@ -53,7 +69,7 @@ public class TeXEditorActivity extends AppCompatActivity {
             }
         };
 
-        ((EditText) findViewById(R.id.formula_tex)).addTextChangedListener(inputTextWatcher);
+        ((EditText) findViewById(R.id.latex_edittext)).addTextChangedListener(inputTextWatcher);
 
         Button takePhotoButton = (Button) findViewById(R.id.take_photo);
         takePhotoButton.setOnClickListener(new View.OnClickListener() {
@@ -70,16 +86,35 @@ public class TeXEditorActivity extends AppCompatActivity {
                 getFromGallery(v);
             }
         });
+        
+    }
 
-        /*
-        ImageLoader imageLoader = ImageLoader.getInstance();
-        DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                .cacheOnDisc(true).resetViewBeforeLoading(true)
-                .build();
+    public boolean onMenuItemClick(MenuItem item) {
 
-        imageLoader.displayImage(src, imageView, options);
-        */
+        selectedType = item.getItemId();
+        switch (selectedType) {
 
+            case R.id.item_text:
+                findViewById(R.id.text_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.latex_layout).setVisibility(View.GONE);
+                findViewById(R.id.image_layout).setVisibility(View.GONE);
+                return true;
+
+            case R.id.item_latex:
+                findViewById(R.id.text_layout).setVisibility(View.GONE);
+                findViewById(R.id.latex_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.image_layout).setVisibility(View.GONE);
+                return true;
+
+            case R.id.item_image:
+                findViewById(R.id.text_layout).setVisibility(View.GONE);
+                findViewById(R.id.latex_layout).setVisibility(View.GONE);
+                findViewById(R.id.image_layout).setVisibility(View.VISIBLE);
+                return true;
+
+            default:
+                return false;
+        }
     }
 
     public void getFromCamera(View view) {

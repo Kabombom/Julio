@@ -18,10 +18,17 @@ public class TeXEditorActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final MathView mathView = (MathView) findViewById(R.id.MathJax_Preview);
 
         TextWatcher inputTextWatcher = new TextWatcher() {
             public void afterTextChanged(Editable s) {
-                ((MathView) findViewById(R.id.MathJax_Preview)).setText(s.toString());
+
+                // auto add missing math mode encapsulation
+                String tex = s.toString();
+                if(!tex.contains("$"))
+                    tex = "$$" + tex + "$$";
+
+                mathView.setText(tex);
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after){

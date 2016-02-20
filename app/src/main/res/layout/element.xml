@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_margin="20dp"
+    android:layout_height="wrap_content"
+    android:background="#ff0000"
+    android:id="@+id/element_layout">
+    <TextView
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="200dp"
+        android:id="@+id/TextView"
+        android:visibility="gone"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/ImageView"
+        android:visibility="gone"/>
+   <io.github.kexanie.library.MathView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/MathView"
+        android:visibility="gone"/>
+
+
+
+</LinearLayout>

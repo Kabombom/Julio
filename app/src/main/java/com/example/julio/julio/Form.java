@@ -74,7 +74,12 @@ public class Form extends AppCompatActivity {
                 EditText title = (EditText)findViewById(R.id.TitleInput);
                 EditText description = (EditText)findViewById(R.id.TileDescription);
                 int backgroundColor = ((ColorDrawable) imageView.getBackground()).getColor();
-                Section section = new Section(new ArrayList<String>(),title.getText().toString(),description.getText().toString(),lastId+1,backgroundColor);
+                ArrayList<Element> elements = new ArrayList<Element>();
+                elements.add(new Element(Element.ElementType.Text,"Ola"));
+                elements.add(new Element(Element.ElementType.Latex,"$$x^2$$"));
+                elements.add(new Element(Element.ElementType.Latex,"$$x^2$$"));
+                elements.add(new Element(Element.ElementType.Latex,"$$x^2$$"));
+                Section section = new Section(elements,title.getText().toString(),description.getText().toString(),lastId+1,backgroundColor);
                 strings.add(section);
                 SharedPreferences.Editor editor = getApplicationContext().getSharedPreferences(StartActivity.MY_PREFS_NAME, Context.MODE_PRIVATE).edit();
 

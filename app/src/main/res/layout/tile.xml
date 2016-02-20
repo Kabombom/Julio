@@ -2,20 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/tile"
-    android:background="#ffff00"
+    android:id="@+id/tile">
 
-    >
+
     <TextView
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Titulo"
-        android:id="@+id/tile_title"/>
+        android:text="Título"
+        android:id="@+id/tile_title"
+        android:background="#ffff00"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#00000000"/>
+
     <TextView
         android:id="@+id/tile_description"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Descrição"/>
+        android:text="Descrição"
+        android:background="#ffff00"/>
 </LinearLayout>

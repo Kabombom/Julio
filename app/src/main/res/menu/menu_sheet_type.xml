@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/item_text"
+        android:showAsAction="ifRoom|withText"
+        android:title="Text"
+        android:visible="true"/>
+    <item
+        android:id="@+id/item_latex"
+        android:showAsAction="ifRoom|withText"
+        android:title="LaTex"
+        android:visible="true"/>
+    <item
+        android:id="@+id/item_image"
+        android:showAsAction="ifRoom|withText"
+        android:title="Image"
+        android:visible="true"/>
+
+</menu>

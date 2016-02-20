@@ -34,16 +34,6 @@
             android:layout_gravity="center"
             android:background="@color/colorPrimary"/>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/Text"
-            android:hint="Text"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/AddPhoto"
-            android:hint="Photo"/>
     </LinearLayout>
 
 

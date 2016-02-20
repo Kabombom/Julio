@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class StartActivity extends AppCompatActivity {
@@ -27,15 +28,19 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.tile_layout);
+        for(int i=0;i<5;i++){
+            View layoutItem = getLayoutInflater().inflate(R.layout.tile,null);
+            layoutItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), CheatSheetActivity.class);
+                    startActivity(intent);
+                }
+            });
 
-        TextView tile  = (TextView) findViewById(R.id.Tile);
-        tile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), CheatSheetActivity.class);
-                startActivity(intent);
-            }
-        });
+            linearLayout.addView(layoutItem);
+        }
 
     }
 

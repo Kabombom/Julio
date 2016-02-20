@@ -10,11 +10,13 @@ public class Section {
     String title;
     String description;
     int id;
+    int color;
 
-    public Section(ArrayList<String> content,String title,String description,int id){
+    public Section(ArrayList<String> content,String title,String description,int id,int color){
         this.content = content;
         this.title = title;
         this.description = description;
         this.id = id;
+        this.color = color;
     }
 }

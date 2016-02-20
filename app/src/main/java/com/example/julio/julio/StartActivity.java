@@ -45,6 +45,7 @@ public class StartActivity extends AppCompatActivity {
             Section[] strings = gson.fromJson(json, Section[].class);
             for (Section string : strings) {
                 View layoutItem = getLayoutInflater().inflate(R.layout.tile, null);
+                layoutItem.setBackgroundColor(string.color);
                 ((TextView) layoutItem.findViewById(R.id.tile_title)).setText(string.title);
                 ((TextView) layoutItem.findViewById(R.id.tile_description)).setText(string.description);
                 layoutItem.setOnClickListener(new View.OnClickListener() {

@@ -81,7 +81,8 @@ public class Form extends AppCompatActivity {
                 }
                 EditText title = (EditText)findViewById(R.id.TitleInput);
                 EditText description = (EditText)findViewById(R.id.TileDescription);
-                Section section = new Section(new ArrayList<String>(),title.getText().toString(),description.getText().toString(),lastId+1);
+                int backgroundColor = ((ColorDrawable) imageView.getBackground()).getColor();
+                Section section = new Section(new ArrayList<String>(),title.getText().toString(),description.getText().toString(),lastId+1,backgroundColor);
                 strings.add(section);
                 SharedPreferences.Editor editor = getApplicationContext().getSharedPreferences(StartActivity.MY_PREFS_NAME, Context.MODE_PRIVATE).edit();
 

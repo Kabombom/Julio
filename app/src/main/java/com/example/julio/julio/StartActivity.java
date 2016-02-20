@@ -1,6 +1,8 @@
 package com.example.julio.julio;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -9,8 +11,16 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.Set;
 
 public class StartActivity extends AppCompatActivity {
+
+    public static final String MY_PREFS_NAME = "MyPrefsFile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,18 +38,26 @@ public class StartActivity extends AppCompatActivity {
             }
         });
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.tile_layout);
-        for(int i=0;i<5;i++){
-            View layoutItem = getLayoutInflater().inflate(R.layout.tile, null);
-            layoutItem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getApplicationContext(), EditActivity.class);
-                    startActivity(intent);
-                }
-            });
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("Tiles", "");
+        if(!json.equals("")) {
+            String[] strings = gson.fromJson(json, String[].class);
+            for (String string : strings) {
+                View layoutItem = getLayoutInflater().inflate(R.layout.tile, null);
+                //((TextView) layoutItem.findViewById(R.id.tile_title)).setText(string);
+                layoutItem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getApplicationContext(), CheatSheetActivity.class);
+                        startActivity(intent);
+                    }
+                });
 
-            linearLayout.addView(layoutItem);
+                linearLayout.addView(layoutItem);
+            }
         }
+
 
     }
 

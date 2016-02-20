@@ -30,7 +30,7 @@
         </activity>
         <activity
             android:name=".TeXEditorActivity"
-            android:label="@string/title_activity_cheat_sheet"
+            android:label="@string/title_activity_tex_editor"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Form"

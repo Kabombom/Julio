@@ -42,10 +42,11 @@ public class StartActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String json = sharedPreferences.getString("Tiles", "");
         if(!json.equals("")) {
-            String[] strings = gson.fromJson(json, String[].class);
-            for (String string : strings) {
+            Section[] strings = gson.fromJson(json, Section[].class);
+            for (Section string : strings) {
                 View layoutItem = getLayoutInflater().inflate(R.layout.tile, null);
-                //((TextView) layoutItem.findViewById(R.id.tile_title)).setText(string);
+                ((TextView) layoutItem.findViewById(R.id.tile_title)).setText(string.title);
+                ((TextView) layoutItem.findViewById(R.id.tile_description)).setText(string.description);
                 layoutItem.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

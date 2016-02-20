@@ -31,7 +31,7 @@
             android:label="@string/title_activity_form"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".EditActivity"
+            android:name=".DisplayActivity"
             android:label="@string/title_activity_edit"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

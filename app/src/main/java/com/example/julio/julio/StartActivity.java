@@ -15,9 +15,6 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
-import java.util.Set;
-
 public class StartActivity extends AppCompatActivity {
 
     public static final String MY_PREFS_NAME = "MyPrefsFile";
@@ -52,7 +49,7 @@ public class StartActivity extends AppCompatActivity {
                     Section section = string;
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getApplicationContext(),EditActivity.class);
+                        Intent intent = new Intent(getApplicationContext(),DisplayActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("Section", section);
                         intent.putExtras(bundle);
@@ -63,7 +60,6 @@ public class StartActivity extends AppCompatActivity {
                 linearLayout.addView(layoutItem);
             }
         }
-
 
     }
 

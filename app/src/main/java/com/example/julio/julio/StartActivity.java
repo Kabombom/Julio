@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -34,7 +33,7 @@ public class StartActivity extends AppCompatActivity {
             layoutItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(getApplicationContext(), CheatSheetActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), EditActivity.class);
                     startActivity(intent);
                 }
             });

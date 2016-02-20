@@ -9,12 +9,12 @@ import android.widget.EditText;
 
 import io.github.kexanie.library.MathView;
 
-public class CheatSheetActivity extends AppCompatActivity {
+public class TeXEditorActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cheat_sheet);
+        setContentView(R.layout.activity_tex_editor);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

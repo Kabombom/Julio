@@ -23,12 +23,16 @@
             android:label="@string/title_activity_splash_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".CheatSheetActivity"
+            android:name=".TeXEditorActivity"
             android:label="@string/title_activity_cheat_sheet"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Form"
             android:label="@string/title_activity_form"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EditActivity"
+            android:label="@string/title_activity_edit"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

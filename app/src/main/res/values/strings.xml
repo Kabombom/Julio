@@ -4,4 +4,5 @@
     <string name="title_activity_splash_screen">SplashScreen</string>
     <string name="title_activity_cheat_sheet">CheatSheetActivity</string>
     <string name="title_activity_form">Form</string>
+    <string name="title_activity_edit">EditActivity</string>
 </resources>

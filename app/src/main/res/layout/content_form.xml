@@ -34,16 +34,6 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/SearchAvailable"
-            android:hint="Search"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/Write"
-            android:hint="Latex Formulae"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/AddPhoto"
             android:hint="Photo"/>
     </LinearLayout>

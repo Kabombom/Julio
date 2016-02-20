@@ -1,14 +1,12 @@
 package com.example.julio.julio;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.LinearLayout;
 
-import java.io.LineNumberReader;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -18,17 +16,6 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override
@@ -41,8 +28,9 @@ public class SplashScreen extends AppCompatActivity {
         final Handler mainHandler = new Handler(this.getMainLooper());
         final Runnable myRunnable = new Runnable() {
             @Override
-            public void run() {showProgress(true);
-            } // This is your code
+            public void run() {
+                // This is your code
+            }
         };
 
         new Timer().schedule(new TimerTask() {
@@ -51,7 +39,7 @@ public class SplashScreen extends AppCompatActivity {
 
                 mainHandler.post(myRunnable);
 
-                final Intent intent = new Intent(this, StartActivity.class);
+                final Intent intent = new Intent(getApplicationContext(), StartActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();

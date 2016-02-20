@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import io.github.kexanie.library.MathView;
@@ -42,26 +43,30 @@ public class Form extends AppCompatActivity {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(StartActivity.MY_PREFS_NAME, Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("Tiles", "");
-        List<String> strings;
+        int lastId = sharedPreferences.getInt("LastId",0);
+        List<Section> strings;
         if(!json.equals("")) {
-            System.out.println("HEYO");
-            String[] stringsArray = gson.fromJson(json, String[].class);
+            Section[] stringsArray = gson.fromJson(json, Section[].class);
             strings = Arrays.asList(stringsArray);
             strings = new ArrayList<>(strings);
         }
         else{
-            strings = new ArrayList<String>();
+            strings = new ArrayList<Section>();
         }
-        strings.add("Tile " + new Random().nextInt());
-
+        EditText title = (EditText)findViewById(R.id.TitleInput);
+        EditText description = (EditText)findViewById(R.id.TileDescription);
+        Section section = new Section(new ArrayList<String>(),title.getText().toString(),description.getText().toString(),lastId+1);
         SharedPreferences.Editor editor = getApplicationContext().getSharedPreferences(StartActivity.MY_PREFS_NAME, Context.MODE_PRIVATE).edit();
+
+        editor.putInt("LastId",lastId+1);
+
         json = gson.toJson(strings);
         editor.putString("Tiles",json).apply();
         Button button = (Button) findViewById(R.id.Text);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), CheatSheetActivity.class);
+                Intent intent = new Intent(getApplicationContext(), TeXEditorActivity.class);
                 startActivity(intent);
             }
         });

@@ -30,7 +30,7 @@ public class StartActivity extends AppCompatActivity {
         });
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.tile_layout);
         for(int i=0;i<5;i++){
-            View layoutItem = getLayoutInflater().inflate(R.layout.tile,null);
+            View layoutItem = getLayoutInflater().inflate(R.layout.tile, null);
             layoutItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

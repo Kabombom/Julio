@@ -26,4 +26,5 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'io.github.kexanie.library:MathView:0.0.5'
     compile 'com.google.code.gson:gson:2.5'
+    compile 'com.github.yukuku:ambilwarna:2.0.1'
 }

@@ -16,6 +16,11 @@ public class EditActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Bundle b = getIntent().getExtras();
+        Section section = (Section)b.getSerializable("Section");
+        getSupportActionBar().setTitle(section.title);
+
+
 
     }
 

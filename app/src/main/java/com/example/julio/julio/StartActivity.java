@@ -43,15 +43,19 @@ public class StartActivity extends AppCompatActivity {
         String json = sharedPreferences.getString("Tiles", "");
         if(!json.equals("")) {
             Section[] strings = gson.fromJson(json, Section[].class);
-            for (Section string : strings) {
+            for (final Section string : strings) {
                 View layoutItem = getLayoutInflater().inflate(R.layout.tile, null);
                 layoutItem.setBackgroundColor(string.color);
                 ((TextView) layoutItem.findViewById(R.id.tile_title)).setText(string.title);
                 ((TextView) layoutItem.findViewById(R.id.tile_description)).setText(string.description);
                 layoutItem.setOnClickListener(new View.OnClickListener() {
+                    Section section = string;
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getApplicationContext(), EditActivity.class);
+                        Intent intent = new Intent(getApplicationContext(),EditActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("Section", section);
+                        intent.putExtras(bundle);
                         startActivity(intent);
                     }
                 });

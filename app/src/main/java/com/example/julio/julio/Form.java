@@ -30,14 +30,6 @@ public class Form extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Button button = (Button) findViewById(R.id.Text);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), TeXEditorActivity.class);
-                startActivity(intent);
-            }
-        });
 
         final Context context = this;
 

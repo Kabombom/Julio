@@ -27,4 +27,5 @@ dependencies {
     compile 'io.github.kexanie.library:MathView:0.0.5'
     compile 'com.google.code.gson:gson:2.5'
     compile 'com.github.yukuku:ambilwarna:2.0.1'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 }

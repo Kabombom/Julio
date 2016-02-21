@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.view.ViewGroup;
@@ -65,6 +66,15 @@ public class DisplayActivity extends AppCompatActivity {
                 MathView mathView = (MathView)layout.findViewById(R.id.math_view);
                 mathView.setText(element.content);
                 mathView.setVisibility(View.VISIBLE);
+                mathView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (v.getId() == R.id.math_view && event.getAction() == MotionEvent.ACTION_DOWN){
+                            goToDetails();
+                        }
+                        return false;
+                    }
+                });
             }
             else if(element.type == Element.ElementType.Image){
                 ImageView imageView = (ImageView)layout.findViewById(R.id.image_view);
@@ -83,15 +93,7 @@ public class DisplayActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-
-                    Intent intent = new Intent(getApplicationContext(), TeXEditorActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("ElementPos", section.content.indexOf(element));
-                    bundle.putInt("SectionId", sectionId);
-                    bundle.putSerializable("Sections", sections);
-                    intent.putExtras(bundle);
-
-                    startActivity(intent);
+                    goToDetails();
                 }
             });
 
@@ -125,6 +127,19 @@ public class DisplayActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    private void goToDetails() {
+        //TODO: aqui belem
+
+        Intent intent = new Intent(getApplicationContext(), TeXEditorActivity.class);
+        Bundle bundle = new Bundle();
+                    /*
+                    bundle.putSerializable("SectionId", sectionId);
+                    bundle.putSerializable("Sections", sections);
+                    intent.putExtras(bundle);
+                    */
+        startActivity(intent);
     }
 
 }

@@ -23,7 +23,7 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.start_activity);
+        setContentView(R.layout.activity_start);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -35,6 +35,18 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        FloatingActionButton addButton = (FloatingActionButton) findViewById(R.id.addButton);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Form.class);
+                startActivity(intent);
+            }
+        });
+
+
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.tile_layout);
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -42,11 +54,13 @@ public class StartActivity extends AppCompatActivity {
         if(!json.equals("")) {
             Section[] strings = gson.fromJson(json, Section[].class);
             for (final Section string : strings) {
+
                 View layoutItem = getLayoutInflater().inflate(R.layout.tile, null);
                 layoutItem.setBackgroundColor(string.color);
 
                 ((TextView) layoutItem.findViewById(R.id.tile_title)).setText(string.title);
                 ((TextView) layoutItem.findViewById(R.id.tile_description)).setText(string.description);
+
                 layoutItem.setOnClickListener(new View.OnClickListener() {
                     Section section = string;
 
@@ -57,6 +71,16 @@ public class StartActivity extends AppCompatActivity {
                         bundle.putSerializable("Section", section);
                         intent.putExtras(bundle);
                         startActivity(intent);
+                    }
+                });
+
+                layoutItem.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+
+                        findViewById(R.id.edit_buttons_layout).setVisibility(View.VISIBLE);
+
+                        return false;
                     }
                 });
 

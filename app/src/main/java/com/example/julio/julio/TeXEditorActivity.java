@@ -63,11 +63,17 @@ public class TeXEditorActivity extends AppCompatActivity implements PopupMenu.On
             switch (element.type){
                 case Text:
                     selectedType = R.id.item_text;
+                    findViewById(R.id.text_layout).setVisibility(View.VISIBLE);
+                    findViewById(R.id.latex_layout).setVisibility(View.GONE);
+                    findViewById(R.id.image_layout).setVisibility(View.GONE);
                     EditText editText = (EditText) findViewById(R.id.note_edittext);
                     editText.setText(element.content);
                     break;
                 case Latex:
                     selectedType = R.id.item_latex;
+                    findViewById(R.id.text_layout).setVisibility(View.GONE);
+                    findViewById(R.id.latex_layout).setVisibility(View.VISIBLE);
+                    findViewById(R.id.image_layout).setVisibility(View.GONE);
                     EditText editText1 = (EditText) findViewById(R.id.latex_edittext);
                     editText1.setText(element.content.replace("$",""));
                     MathView mathView2 = (MathView) findViewById(R.id.latex_preview);
@@ -147,11 +153,11 @@ public class TeXEditorActivity extends AppCompatActivity implements PopupMenu.On
                     case R.id.item_latex:
                         MathView mathView2 = (MathView) findViewById(R.id.latex_preview);
                         if(elementId<0) {
-                            section.content.add(new Element(Element.ElementType.Latex,mathView2.getText().toString()));
+                            section.content.add(new Element(Element.ElementType.Latex,mathView2.getText()));
                         }
                         else{
                             Element element = section.content.get(elementId);
-                            element.content = mathView2.getText().toString();
+                            element.content = mathView2.getText();
                             element.type = Element.ElementType.Latex;
                         }
                         break;
@@ -179,7 +185,6 @@ public class TeXEditorActivity extends AppCompatActivity implements PopupMenu.On
                 Gson gson = new Gson();
 
                 String json = gson.toJson(sections);
-                System.out.println(json);
                 editor.putString("Tiles",json).apply();
 
                 intent.putExtras(bundle);

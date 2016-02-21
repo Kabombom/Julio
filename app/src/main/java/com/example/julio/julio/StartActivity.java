@@ -43,13 +43,15 @@ public class StartActivity extends AppCompatActivity {
             for (final Section string : strings) {
                 View layoutItem = getLayoutInflater().inflate(R.layout.tile, null);
                 layoutItem.setBackgroundColor(string.color);
+
                 ((TextView) layoutItem.findViewById(R.id.tile_title)).setText(string.title);
                 ((TextView) layoutItem.findViewById(R.id.tile_description)).setText(string.description);
                 layoutItem.setOnClickListener(new View.OnClickListener() {
                     Section section = string;
+
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getApplicationContext(),DisplayActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), DisplayActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("Section", section);
                         intent.putExtras(bundle);
@@ -58,6 +60,10 @@ public class StartActivity extends AppCompatActivity {
                 });
 
                 linearLayout.addView(layoutItem);
+
+                View separatorView = new View(this);
+                separatorView.setVisibility(View.INVISIBLE);
+                linearLayout.addView(separatorView);
             }
         }
 

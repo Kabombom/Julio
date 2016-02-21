@@ -41,6 +41,7 @@ public class TeXEditorActivity extends AppCompatActivity implements PopupMenu.On
     private Section section;
     private ArrayList<Section> sections;
     private int sectionId;
+    private int elementId = -1;
 
     private int selectedType = R.id.item_latex;
 
@@ -53,8 +54,29 @@ public class TeXEditorActivity extends AppCompatActivity implements PopupMenu.On
 
         final Bundle b = getIntent().getExtras();
         sectionId = b.getInt("SectionId");
+        elementId = b.getInt("ElementPos",-1);
+
         sections = (ArrayList<Section>)b.getSerializable("Sections");
         section = Section.getSectionById(sections, sectionId);
+        if(elementId!=-1) {
+            Element element = section.content.get(elementId);
+            switch (element.type){
+                case Text:
+                    selectedType = R.id.item_text;
+                    EditText editText = (EditText) findViewById(R.id.note_edittext);
+                    editText.setText(element.content);
+                    break;
+                case Latex:
+                    selectedType = R.id.item_latex;
+                    EditText editText1 = (EditText) findViewById(R.id.latex_edittext);
+                    editText1.setText(element.content.replace("$",""));
+                    MathView mathView2 = (MathView) findViewById(R.id.latex_preview);
+                    mathView2.setText(element.content);
+                    break;
+                default:
+                    break;
+            }
+        }
 
         ImageButton texMenuButton = (ImageButton) findViewById(R.id.tex_menu_button);
         texMenuButton.setOnClickListener(new View.OnClickListener() {
@@ -111,13 +133,27 @@ public class TeXEditorActivity extends AppCompatActivity implements PopupMenu.On
                 switch (selectedType){
                     case R.id.item_text:
                         EditText editText = (EditText)findViewById(R.id.note_edittext);
-                        section.content.add(new Element(Element.ElementType.Text, editText.getText().toString()));
+                        if(elementId<0) {
+                            section.content.add(new Element(Element.ElementType.Text, editText.getText().toString()));
+                        }
+                        else{
+                            Element element = section.content.get(elementId);
+                            element.content = editText.getText().toString();
+                            element.type = Element.ElementType.Text;
+                        }
                         break;
 
 
                     case R.id.item_latex:
                         MathView mathView2 = (MathView) findViewById(R.id.latex_preview);
-                        section.content.add(new Element(Element.ElementType.Latex,mathView2.getText().toString()));
+                        if(elementId<0) {
+                            section.content.add(new Element(Element.ElementType.Latex,mathView2.getText().toString()));
+                        }
+                        else{
+                            Element element = section.content.get(elementId);
+                            element.content = mathView2.getText().toString();
+                            element.type = Element.ElementType.Latex;
+                        }
                         break;
 
                     case R.id.item_image:

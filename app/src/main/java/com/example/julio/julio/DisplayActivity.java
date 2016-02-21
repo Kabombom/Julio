@@ -30,7 +30,7 @@ public class DisplayActivity extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         final int sectionId = b.getInt("SectionId");
         final ArrayList<Section> sections = (ArrayList<Section>)b.getSerializable("Sections");
-        Section section = Section.getSectionById(sections,sectionId);
+        final Section section = Section.getSectionById(sections,sectionId);
         getSupportActionBar().setTitle(section.title);
 
         FloatingActionButton addButton = (FloatingActionButton) findViewById(R.id.addButton);
@@ -47,10 +47,10 @@ public class DisplayActivity extends AppCompatActivity {
         });
 
         final LinearLayout linearLayout = (LinearLayout)findViewById(R.id.displayLayout);
-
-        for(Element element:section.content){
+git
+        for(final Element element:section.content){
             final View layoutItem = getLayoutInflater().inflate(R.layout.element, null);
-            LinearLayout layout = (LinearLayout)layoutItem.findViewById(R.id.element_layout);
+            final LinearLayout layout = (LinearLayout)layoutItem.findViewById(R.id.element_layout);
 
             if(element.type == Element.ElementType.Text){
                 TextView textView = (TextView)layout.findViewById(R.id.TextView);
@@ -79,15 +79,14 @@ public class DisplayActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    //TODO: aqui belem
 
                     Intent intent = new Intent(getApplicationContext(), TeXEditorActivity.class);
                     Bundle bundle = new Bundle();
-                    /*
-                    bundle.putSerializable("SectionId", sectionId);
+                    bundle.putInt("ElementPos", section.content.indexOf(element));
+                    bundle.putInt("SectionId", sectionId);
                     bundle.putSerializable("Sections", sections);
                     intent.putExtras(bundle);
-                    */
+
                     startActivity(intent);
                 }
             });

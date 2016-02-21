@@ -1,6 +1,8 @@
 package com.example.julio.julio;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -13,6 +15,8 @@ import android.widget.ImageView;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -47,7 +51,7 @@ public class DisplayActivity extends AppCompatActivity {
         });
 
         final LinearLayout linearLayout = (LinearLayout)findViewById(R.id.displayLayout);
-git
+
         for(final Element element:section.content){
             final View layoutItem = getLayoutInflater().inflate(R.layout.element, null);
             final LinearLayout layout = (LinearLayout)layoutItem.findViewById(R.id.element_layout);
@@ -101,9 +105,14 @@ git
                         @Override
                         public void onClick(View view) {
                             deleteButton.setVisibility(View.GONE);
-
                             linearLayout.removeView(layoutItem);
                             linearLayout.removeView(separatorView);
+                            section.content.remove(element);
+
+                            SharedPreferences.Editor editor = getApplicationContext().getSharedPreferences(StartActivity.MY_PREFS_NAME, Context.MODE_PRIVATE).edit();
+                            Gson gson = new Gson();
+                            String json = gson.toJson(sections);
+                            editor.putString("Tiles",json).apply();
                         }
                     });
 

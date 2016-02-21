@@ -5,15 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/tile"
-    android:background="#ffff00">
+    android:padding="16dp">
 
     <TextView
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Título"
-        android:id="@+id/tile_title"
-        android:background="#ffff00"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:id="@+id/tile_title"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000"/>
 
     <TextView
         android:id="@+id/tile_description"
@@ -21,5 +26,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Descrição"
-        android:background="#ffff00"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
 </LinearLayout>

@@ -2,9 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
+<<<<<<< HEAD
     android:id="@+id/tile">
 
 
+=======
+    android:id="@+id/tile"
+    android:background="#ffff00"
+    >
+>>>>>>> master
     <TextView
         android:gravity="center"
         android:layout_width="match_parent"

@@ -60,7 +60,7 @@ public class StartActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
-                        findViewById(R.id.edit_buttons_layout).setVisibility(View.GONE);
+                        findViewById(R.id.deleteButton).setVisibility(View.GONE);
 
                         Intent intent = new Intent(getApplicationContext(), DisplayActivity.class);
                         Bundle bundle = new Bundle();
@@ -76,28 +76,27 @@ public class StartActivity extends AppCompatActivity {
 
                     public void onFocusChange(View v, boolean hasFocus) {
                         if (!hasFocus) {
-                            findViewById(R.id.edit_buttons_layout).setVisibility(View.GONE);
+                            findViewById(R.id.deleteButton).setVisibility(View.GONE);
                         }
                     }
                 });
 
-                linearLayout.addView(layoutItem);
-
                 final View separatorView = new View(this);
                 separatorView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 75));
                 separatorView.setVisibility(View.INVISIBLE);
-                linearLayout.addView(separatorView);
 
                 layoutItem.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
 
-                        findViewById(R.id.edit_buttons_layout).setVisibility(View.VISIBLE);
-
-                        FloatingActionButton deleteButton = (FloatingActionButton) findViewById(R.id.deleteButton);
+                        final FloatingActionButton deleteButton = (FloatingActionButton) findViewById(R.id.deleteButton);
+                        deleteButton.setVisibility(View.VISIBLE);
                         deleteButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+
+                                deleteButton.setVisibility(View.GONE);
+
                                 sections.remove(section);
                                 linearLayout.removeView(layoutItem);
                                 linearLayout.removeView(separatorView);
@@ -107,6 +106,9 @@ public class StartActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+
+                linearLayout.addView(layoutItem);
+                linearLayout.addView(separatorView);
 
             }
         }

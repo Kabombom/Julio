@@ -7,32 +7,24 @@
     tools:context=".StartActivity">
 
     <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
-        android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
+                                                android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
-            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay" />
+                                           android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
+                                           android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_start_page" />
 
-    <LinearLayout
-        android:id="@+id/edit_buttons_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/deleteButton"
         android:layout_gravity="bottom|start"
         android:visibility="gone"
-        android:orientation="vertical">
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/deleteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/ic_delete_white_24dp" />
-
-    </LinearLayout>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_delete_white_24dp" />
 
 
     <android.support.design.widget.FloatingActionButton

@@ -1,10 +1,13 @@
 package com.example.julio.julio;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -18,8 +21,11 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import io.github.kexanie.library.MathView;
 
@@ -30,6 +36,10 @@ public class TeXEditorActivity extends AppCompatActivity implements PopupMenu.On
 
     private Bitmap photo_bitmap = null;
 
+    private Section section;
+    private ArrayList<Section> sections;
+    private int sectionId;
+
     private int selectedType = R.id.item_latex;
 
     @Override
@@ -38,6 +48,11 @@ public class TeXEditorActivity extends AppCompatActivity implements PopupMenu.On
         setContentView(R.layout.activity_tex_editor);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        final Bundle b = getIntent().getExtras();
+        sectionId = b.getInt("SectionId");
+        sections = (ArrayList<Section>)b.getSerializable("Sections");
+        section = Section.getSectionById(sections, sectionId);
 
         ImageButton texMenuButton = (ImageButton) findViewById(R.id.tex_menu_button);
         texMenuButton.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +101,47 @@ public class TeXEditorActivity extends AppCompatActivity implements PopupMenu.On
                 getFromGallery(v);
             }
         });
-        
+
+        FloatingActionButton applyButton = (FloatingActionButton) findViewById(R.id.applyButton);
+        applyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (selectedType){
+                    case R.id.item_text:
+                        EditText editText = (EditText)findViewById(R.id.note_edittext);
+                        section.content.add(new Element(Element.ElementType.Text, editText.getText().toString()));
+                        break;
+
+
+                    case R.id.item_latex:
+                        MathView mathView2 = (MathView) findViewById(R.id.MathJax_Preview);
+                        section.content.add(new Element(Element.ElementType.Latex,mathView2.getText().toString()));
+                        break;
+
+                    case R.id.item_image:
+                        break;
+
+                    default:
+
+                }
+                SharedPreferences.Editor editor = getApplicationContext().getSharedPreferences(StartActivity.MY_PREFS_NAME, Context.MODE_PRIVATE).edit();
+
+                Intent intent = new Intent(getApplicationContext(), DisplayActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Sections", sections);
+                bundle.putInt("SectionId",sectionId);
+                Gson gson = new Gson();
+
+                String json = gson.toJson(sections);
+                System.out.println(json);
+                editor.putString("Tiles",json).apply();
+
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     public boolean onMenuItemClick(MenuItem item) {

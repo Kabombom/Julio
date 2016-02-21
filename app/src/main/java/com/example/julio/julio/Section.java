@@ -25,4 +25,14 @@ public class Section implements Serializable{
         this.id = id;
         this.color = color;
     }
+
+    public static Section getSectionById(ArrayList<Section> sections,int sectionId){
+        for(Section section:sections){
+            if(section.id == sectionId){
+                return section;
+            }
+        }
+        return null;
+
+    }
 }

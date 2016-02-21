@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import io.github.kexanie.library.MathView;
 
 public class DisplayActivity extends AppCompatActivity {
@@ -21,7 +23,9 @@ public class DisplayActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Bundle b = getIntent().getExtras();
-        Section section = (Section)b.getSerializable("Section");
+        final int sectionId = b.getInt("SectionId");
+        final ArrayList<Section> sections = (ArrayList<Section>)b.getSerializable("Sections");
+        Section section = Section.getSectionById(sections,sectionId);
         getSupportActionBar().setTitle(section.title);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addButton);
@@ -29,6 +33,10 @@ public class DisplayActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), TeXEditorActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("SectionId", sectionId);
+                bundle.putSerializable("Sections", sections);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

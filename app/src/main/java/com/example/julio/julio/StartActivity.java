@@ -16,6 +16,9 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class StartActivity extends AppCompatActivity {
 
     public static final String MY_PREFS_NAME = "MyPrefsFile";
@@ -52,7 +55,8 @@ public class StartActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String json = sharedPreferences.getString("Tiles", "");
         if(!json.equals("")) {
-            Section[] strings = gson.fromJson(json, Section[].class);
+            final Section[] strings = gson.fromJson(json, Section[].class);
+            final ArrayList<Section> sections = new ArrayList<Section>(Arrays.asList(strings));
             for (final Section string : strings) {
 
                 View layoutItem = getLayoutInflater().inflate(R.layout.tile, null);
@@ -68,7 +72,8 @@ public class StartActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         Intent intent = new Intent(getApplicationContext(), DisplayActivity.class);
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("Section", section);
+                        bundle.putInt("SectionId",section.id);
+                        bundle.putSerializable("Sections",sections);
                         intent.putExtras(bundle);
                         startActivity(intent);
                     }

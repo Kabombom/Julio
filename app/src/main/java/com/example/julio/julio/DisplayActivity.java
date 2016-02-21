@@ -8,9 +8,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -33,8 +33,8 @@ public class DisplayActivity extends AppCompatActivity {
         Section section = Section.getSectionById(sections,sectionId);
         getSupportActionBar().setTitle(section.title);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.editButton);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton addButton = (FloatingActionButton) findViewById(R.id.addButton);
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), TeXEditorActivity.class);
@@ -46,11 +46,12 @@ public class DisplayActivity extends AppCompatActivity {
             }
         });
 
-        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.displayLayout);
+        final LinearLayout linearLayout = (LinearLayout)findViewById(R.id.displayLayout);
 
         for(Element element:section.content){
-            View layoutItem = getLayoutInflater().inflate(R.layout.element, null);
+            final View layoutItem = getLayoutInflater().inflate(R.layout.element, null);
             LinearLayout layout = (LinearLayout)layoutItem.findViewById(R.id.element_layout);
+
             if(element.type == Element.ElementType.Text){
                 TextView textView = (TextView)layout.findViewById(R.id.TextView);
                 textView.setText(element.content);
@@ -69,7 +70,51 @@ public class DisplayActivity extends AppCompatActivity {
                 imageView.setImageBitmap(bitmap);
                 imageView.setVisibility(View.VISIBLE);
             }
+
+            final View separatorView = new View(this);
+            separatorView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 75));
+            separatorView.setVisibility(View.INVISIBLE);
+
+            layoutItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    //TODO: aqui belem
+
+                    Intent intent = new Intent(getApplicationContext(), TeXEditorActivity.class);
+                    Bundle bundle = new Bundle();
+                    /*
+                    bundle.putSerializable("SectionId", sectionId);
+                    bundle.putSerializable("Sections", sections);
+                    intent.putExtras(bundle);
+                    */
+                    startActivity(intent);
+                }
+            });
+
+            layoutItem.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    final FloatingActionButton deleteButton = (FloatingActionButton) findViewById(R.id.deleteButton);
+                    deleteButton.setVisibility(View.VISIBLE);
+                    deleteButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            deleteButton.setVisibility(View.GONE);
+
+                            linearLayout.removeView(layoutItem);
+                            linearLayout.removeView(separatorView);
+                        }
+                    });
+
+                    return false;
+                }
+            });
+
             linearLayout.addView(layoutItem);
+            linearLayout.addView(separatorView);
+
         }
 
     }

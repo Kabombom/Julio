@@ -153,11 +153,11 @@ public class TeXEditorActivity extends AppCompatActivity implements PopupMenu.On
                     case R.id.item_latex:
                         MathView mathView2 = (MathView) findViewById(R.id.latex_preview);
                         if(elementId<0) {
-                            section.content.add(new Element(Element.ElementType.Latex,mathView2.getText().toString()));
+                            section.content.add(new Element(Element.ElementType.Latex,mathView2.getText()));
                         }
                         else{
                             Element element = section.content.get(elementId);
-                            element.content = mathView2.getText().toString();
+                            element.content = mathView2.getText();
                             element.type = Element.ElementType.Latex;
                         }
                         break;

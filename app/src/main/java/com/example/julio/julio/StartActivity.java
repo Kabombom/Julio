@@ -30,15 +30,6 @@ public class StartActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Form.class);
-                startActivity(intent);
-            }
-        });
-
 
         FloatingActionButton addButton = (FloatingActionButton) findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -50,34 +41,52 @@ public class StartActivity extends AppCompatActivity {
         });
 
 
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.tile_layout);
+        final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.tile_layout);
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("Tiles", "");
         if(!json.equals("")) {
             final Section[] strings = gson.fromJson(json, Section[].class);
             final ArrayList<Section> sections = new ArrayList<Section>(Arrays.asList(strings));
-            for (final Section string : strings) {
+            for (final Section section : strings) {
 
-                View layoutItem = getLayoutInflater().inflate(R.layout.tile, null);
-                layoutItem.setBackgroundColor(string.color);
+                final View layoutItem = getLayoutInflater().inflate(R.layout.tile, null);
+                layoutItem.setBackgroundColor(section.color);
 
-                ((TextView) layoutItem.findViewById(R.id.tile_title)).setText(string.title);
-                ((TextView) layoutItem.findViewById(R.id.tile_description)).setText(string.description);
+                ((TextView) layoutItem.findViewById(R.id.tile_title)).setText(section.title);
+                ((TextView) layoutItem.findViewById(R.id.tile_description)).setText(section.description);
 
                 layoutItem.setOnClickListener(new View.OnClickListener() {
-                    Section section = string;
-
                     @Override
                     public void onClick(View view) {
+
+                        findViewById(R.id.edit_buttons_layout).setVisibility(View.GONE);
+
                         Intent intent = new Intent(getApplicationContext(), DisplayActivity.class);
                         Bundle bundle = new Bundle();
-                        bundle.putInt("SectionId",section.id);
-                        bundle.putSerializable("Sections",sections);
+                        bundle.putInt("SectionId", section.id);
+                        bundle.putSerializable("Sections", sections);
                         intent.putExtras(bundle);
                         startActivity(intent);
                     }
+
                 });
+
+                layoutItem.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+                    public void onFocusChange(View v, boolean hasFocus) {
+                        if (!hasFocus) {
+                            findViewById(R.id.edit_buttons_layout).setVisibility(View.GONE);
+                        }
+                    }
+                });
+
+                linearLayout.addView(layoutItem);
+
+                final View separatorView = new View(this);
+                separatorView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 75));
+                separatorView.setVisibility(View.INVISIBLE);
+                linearLayout.addView(separatorView);
 
                 layoutItem.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
@@ -85,16 +94,19 @@ public class StartActivity extends AppCompatActivity {
 
                         findViewById(R.id.edit_buttons_layout).setVisibility(View.VISIBLE);
 
-                        return false;
+                        FloatingActionButton deleteButton = (FloatingActionButton) findViewById(R.id.deleteButton);
+                        deleteButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                sections.remove(section);
+                                linearLayout.removeView(layoutItem);
+                                linearLayout.removeView(separatorView);
+                            }
+                        });
+
+                        return true;
                     }
                 });
-
-                linearLayout.addView(layoutItem);
-
-                View separatorView = new View(this);
-                separatorView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 75));
-                separatorView.setVisibility(View.INVISIBLE);
-                linearLayout.addView(separatorView);
 
             }
         }

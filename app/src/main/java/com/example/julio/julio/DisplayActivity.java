@@ -53,17 +53,17 @@ git
             final LinearLayout layout = (LinearLayout)layoutItem.findViewById(R.id.element_layout);
 
             if(element.type == Element.ElementType.Text){
-                TextView textView = (TextView)layout.findViewById(R.id.TextView);
+                TextView textView = (TextView)layout.findViewById(R.id.text_view);
                 textView.setText(element.content);
                 textView.setVisibility(View.VISIBLE);
             }
             else if(element.type == Element.ElementType.Latex){
-                MathView mathView = (MathView)layout.findViewById(R.id.MathView);
+                MathView mathView = (MathView)layout.findViewById(R.id.math_view);
                 mathView.setText(element.content);
                 mathView.setVisibility(View.VISIBLE);
             }
             else if(element.type == Element.ElementType.Image){
-                ImageView imageView = (ImageView)layout.findViewById(R.id.ImageView);
+                ImageView imageView = (ImageView)layout.findViewById(R.id.image_view);
                 byte [] encodeByte= Base64.decode(element.content, Base64.DEFAULT);
                 Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
 

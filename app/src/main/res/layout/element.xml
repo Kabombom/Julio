@@ -2,27 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_margin="20dp"
+    android:padding="1dp"
     android:layout_height="wrap_content"
-    android:background="#ff0000"
+    android:background="@color/colorPrimaryDark"
     android:id="@+id/element_layout">
+
     <TextView
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_height="200dp"
-        android:id="@+id/TextView"
+        android:id="@+id/text_view"
+        android:background="@android:color/white"
         android:visibility="gone"/>
+
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:id="@+id/ImageView"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/image_view"
+        android:background="@android:color/white"
         android:visibility="gone"/>
+
    <io.github.kexanie.library.MathView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:id="@+id/MathView"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/math_view"
+        android:background="@android:color/white"
         android:visibility="gone"/>
-
-
 
 </LinearLayout>

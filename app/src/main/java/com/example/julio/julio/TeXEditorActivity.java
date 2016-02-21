@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -119,6 +121,14 @@ public class TeXEditorActivity extends AppCompatActivity implements PopupMenu.On
                         break;
 
                     case R.id.item_image:
+                        if(photo_bitmap!=null){
+                            ByteArrayOutputStream baos=new  ByteArrayOutputStream();
+                            photo_bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+                            byte [] arr=baos.toByteArray();
+                            String result= Base64.encodeToString(arr, Base64.DEFAULT);
+
+                            section.content.add(new Element(Element.ElementType.Image,result));
+                        }
                         break;
 
                     default:

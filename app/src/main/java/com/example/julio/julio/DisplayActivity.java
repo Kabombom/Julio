@@ -1,12 +1,16 @@
 package com.example.julio.julio;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -56,6 +60,14 @@ public class DisplayActivity extends AppCompatActivity {
                 MathView mathView = (MathView)layout.findViewById(R.id.MathView);
                 mathView.setText(element.content);
                 mathView.setVisibility(View.VISIBLE);
+            }
+            else if(element.type == Element.ElementType.Image){
+                ImageView imageView = (ImageView)layout.findViewById(R.id.ImageView);
+                byte [] encodeByte= Base64.decode(element.content, Base64.DEFAULT);
+                Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+
+                imageView.setImageBitmap(bitmap);
+                imageView.setVisibility(View.VISIBLE);
             }
             linearLayout.addView(layoutItem);
         }

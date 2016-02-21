@@ -7,9 +7,10 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -47,13 +48,15 @@ public class StartActivity extends AppCompatActivity {
             for (final Section string : strings) {
                 View layoutItem = getLayoutInflater().inflate(R.layout.tile, null);
                 layoutItem.setBackgroundColor(string.color);
+
                 ((TextView) layoutItem.findViewById(R.id.tile_title)).setText(string.title);
                 ((TextView) layoutItem.findViewById(R.id.tile_description)).setText(string.description);
                 layoutItem.setOnClickListener(new View.OnClickListener() {
                     Section section = string;
+
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getApplicationContext(),DisplayActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), DisplayActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putInt("SectionId",section.id);
                         bundle.putSerializable("Sections",sections);
@@ -63,6 +66,12 @@ public class StartActivity extends AppCompatActivity {
                 });
 
                 linearLayout.addView(layoutItem);
+
+                View separatorView = new View(this);
+                separatorView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 75));
+                separatorView.setVisibility(View.INVISIBLE);
+                linearLayout.addView(separatorView);
+
             }
         }
 

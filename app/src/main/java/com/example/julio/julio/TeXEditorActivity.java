@@ -65,7 +65,7 @@ public class TeXEditorActivity extends AppCompatActivity implements PopupMenu.On
             }
         });
 
-        final MathView mathView = (MathView) findViewById(R.id.MathJax_Preview);
+        final MathView mathView = (MathView) findViewById(R.id.latex_preview);
 
         TextWatcher inputTextWatcher = new TextWatcher() {
             public void afterTextChanged(Editable s) {
